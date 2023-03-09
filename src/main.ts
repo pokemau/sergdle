@@ -66,8 +66,6 @@ const checkIfCorrectGuess = (guess: string) => {
     gameWin();
     return;
   } else if (guess !== SECRET_WORD && guessCount < 6) {
-    // checkLetterIfCorrect(gameState, SECRET_WORD, WORD_LENGTH);
-    // updateKeyboard(guess, SECRET_WORD, WORD_LENGTH);
     for (let i = 0; i < WORD_LENGTH; i++) {
       const currRow =
         document.getElementsByClassName("row")[gameState.guessCount];
@@ -120,3 +118,36 @@ const gameOver = () => {
 };
 
 makeGameBoard();
+
+const keyboard = document.getElementById("keyboard-cont");
+const getKeyboardPress = (e: MouseEvent) => {
+  const target = e.target as HTMLDivElement | HTMLButtonElement;
+  const key = target.textContent!;
+
+  const letterCount = gameState.letterCount;
+  const currentGuess = gameState.currentGuess;
+  const guessCount = gameState.guessCount;
+  const isGameOVer = gameState.isGameOver;
+
+  if (target.className === "key-tile") {
+    showLetter(key.toLocaleUpperCase(), gameState);
+    gameState.currentGuess += key.toLocaleLowerCase();
+    gameState.letterCount++;
+  }
+
+  if (target.id === "delete-key" && letterCount > 0) {
+    gameState.letterCount--;
+    gameState.currentGuess = gameState.currentGuess.slice(0, -1);
+    deleteLetter(gameState);
+  }
+  // user submit a guess
+  const inWordList = WORDS.includes(currentGuess);
+  if (target.id === "enter-key" && letterCount === WORD_LENGTH && inWordList) {
+    if (guessCount === 5 && !isGameOVer) {
+      gameOver();
+    }
+    checkIfCorrectGuess(currentGuess);
+  }
+};
+
+keyboard?.addEventListener("click", getKeyboardPress);

@@ -13,7 +13,9 @@
     <div id="app" class="flex flex-col items-center">
       <h1 class="text-4xl font-bold my-2">SERGDLE</h1>
       <div id="board-cont" class=""></div>
-      <div id="keyboard-cont" class="mt-2 w-full flex flex-col items-center">
+      <div
+        id="keyboard-cont"
+        class="mt-2 w-full flex flex-col items-center noselect">
         <div id="row-1" class="flex">
           <div class="key-tile" id="q" data-key="q">Q</div>
           <div class="key-tile" id="w" data-key="w">W</div>
@@ -39,8 +41,8 @@
           <div class="key-tile" id="l" data-key="l">L</div>
         </div>
         <div id="row-3" class="flex">
-          <div class="special-key">
-            <h1 class="text-xs md:text-lg">ENTER</h1>
+          <div id="enter-key" class="special-key">
+            <h1 id="enter-key" class="text-xs md:text-lg">ENTER</h1>
           </div>
           <div class="key-tile" id="z" data-key="z">Z</div>
           <div class="key-tile" id="x" data-key="x">X</div>
@@ -49,8 +51,12 @@
           <div class="key-tile" id="b" data-key="b">B</div>
           <div class="key-tile" id="n" data-key="n">N</div>
           <div class="key-tile" id="m" data-key="m">M</div>
-          <div class="special-key">
-            <img class="w-7" src="/delete-icon.png" alt="delete letter icon" />
+          <div class="special-key" id="delete-key">
+            <img
+              id="delete-key"
+              class="w-7"
+              src="/delete-icon.png"
+              alt="delete letter icon" />
           </div>
         </div>
       </div>
