@@ -9,7 +9,6 @@ import { getRandomWord } from "./wordlist/get-word";
 import {
   showLetter,
   deleteLetter,
-  checkLetterIfCorrect,
   checkCorrectLetter,
 } from "./Board/board-letters";
 import { updateKeyboard } from "./Board/update-keyboard";
