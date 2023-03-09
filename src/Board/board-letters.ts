@@ -1,7 +1,5 @@
 import { GameState } from "../Utils/interfaces";
 
-const WORD_LENGTH = 5;
-
 export const showLetter = (key: string, gameState: GameState) => {
   const currRow = document.getElementsByClassName("row")[gameState.guessCount];
   const currLetter =
@@ -18,21 +16,14 @@ export const deleteLetter = (gameState: GameState) => {
   currLetter.textContent = "";
 };
 
-export const checkLetterIfCorrect = (
-  gameState: GameState,
-  SECRET_WORD: string
-) => {
-  for (let i = 0; i < WORD_LENGTH; i++) {
-    const currRow =
-      document.getElementsByClassName("row")[gameState.guessCount];
-    const currLetter = currRow.getElementsByClassName("tile")[i];
-    const currGuessLetter = currLetter.textContent?.toLocaleLowerCase()!;
+type Correctness = "correct" | "slightly-correct" | "wrong";
 
-    if (currGuessLetter == SECRET_WORD[i]) {
-      currLetter.classList.add("correct");
-    } else if (SECRET_WORD.includes(currGuessLetter)) {
-      currLetter.classList.add("slightly-correct");
-    } else currLetter.classList.add("wrong");
-  }
-  gameState.guessCount++;
+export const checkCorrectLetter = (
+  guessL: string,
+  wordL: string,
+  SECRET_WORD: string
+): Correctness => {
+  if (guessL === wordL) return "correct";
+  else if (SECRET_WORD.includes(guessL)) return "slightly-correct";
+  else return "wrong";
 };

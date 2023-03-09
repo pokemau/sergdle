@@ -10,7 +10,9 @@ import {
   showLetter,
   deleteLetter,
   checkLetterIfCorrect,
+  checkCorrectLetter,
 } from "./Board/board-letters";
+import { updateKeyboard } from "./Board/update-keyboard";
 
 // constants
 const WORD_LENGTH = 5;
@@ -58,7 +60,7 @@ const getKeyPress = (e: KeyboardEvent) => {
     checkIfCorrectGuess(currentGuess);
   }
 };
-document.addEventListener("keydown", (e) => getKeyPress(e));
+document.addEventListener("keydown", getKeyPress);
 
 const checkIfCorrectGuess = (guess: string) => {
   const guessCount = gameState.guessCount;
@@ -66,7 +68,18 @@ const checkIfCorrectGuess = (guess: string) => {
     gameWin();
     return;
   } else if (guess !== SECRET_WORD && guessCount < 6) {
-    checkLetterIfCorrect(gameState, SECRET_WORD);
+    // checkLetterIfCorrect(gameState, SECRET_WORD, WORD_LENGTH);
+    // updateKeyboard(guess, SECRET_WORD, WORD_LENGTH);
+    for (let i = 0; i < WORD_LENGTH; i++) {
+      const currRow =
+        document.getElementsByClassName("row")[gameState.guessCount];
+      const currLetter = currRow.getElementsByClassName("tile")[i];
+      const guessL = guess[i];
+      const wordL = SECRET_WORD[i];
+      const correctness = checkCorrectLetter(guessL, wordL, SECRET_WORD);
+      currLetter.classList.add(correctness);
+    }
+    gameState.guessCount++;
   }
 
   gameState.letterCount = 0;
