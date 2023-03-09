@@ -2,10 +2,15 @@ import "./style.css";
 
 import { makeGameBoard } from "./Board/make-board";
 import { GameState } from "./Utils/interfaces";
-import { createBtns } from "./NewGame/new-game";
+import { createBtns } from "./GameOver/new-game";
 import { determineIfLetter } from "./Utils/determine-if-letter";
 import { WORDS } from "./wordlist/word-list";
 import { getRandomWord } from "./wordlist/get-word";
+import {
+  showLetter,
+  deleteLetter,
+  checkLetterIfCorrect,
+} from "./Board/board-letters";
 
 // constants
 const WORD_LENGTH = 5;
@@ -19,6 +24,7 @@ const gameState: GameState = {
   guessCount: 0,
   letterCount: 0,
   currentGuess: "",
+  guessList: [],
   isGameOver: false,
 };
 
@@ -31,63 +37,36 @@ const getKeyPress = (e: KeyboardEvent) => {
 
   console.log(key);
 
+  // user type
   if (determineIfLetter(key) && letterCount < 5 && guessCount < 6) {
-    showLetter(key.toLocaleUpperCase());
+    showLetter(key.toLocaleUpperCase(), gameState);
     gameState.currentGuess += key.toLocaleLowerCase();
     gameState.letterCount++;
   }
-
+  // user delete character
   if (key === "Backspace" && letterCount > 0) {
     gameState.letterCount--;
     gameState.currentGuess = gameState.currentGuess.slice(0, -1);
-    deleteLetter();
+    deleteLetter(gameState);
   }
-
+  // user submit a guess
   const inWordList = WORDS.includes(currentGuess);
-  if (key === "Enter" && guessCount < 6 && letterCount === 5 && inWordList) {
-    checkIfCorrectGuess(currentGuess);
+  if (key === "Enter" && letterCount === WORD_LENGTH && inWordList) {
     if (guessCount === 5 && !isGameOVer) {
       gameOver();
     }
+    checkIfCorrectGuess(currentGuess);
   }
 };
 document.addEventListener("keydown", (e) => getKeyPress(e));
 
-const showLetter = (key: string) => {
-  const currRow = document.getElementsByClassName("row")[gameState.guessCount];
-  const currLetter =
-    currRow.getElementsByClassName("tile")[gameState.letterCount];
-
-  currLetter.textContent = key;
-};
-
-const deleteLetter = () => {
-  const currRow = document.getElementsByClassName("row")[gameState.guessCount];
-  const currLetter =
-    currRow.getElementsByClassName("tile")[gameState.letterCount];
-
-  currLetter.textContent = "";
-};
-
 const checkIfCorrectGuess = (guess: string) => {
+  const guessCount = gameState.guessCount;
   if (guess == SECRET_WORD) {
     gameWin();
     return;
-  } else if (gameState.guessCount < 6) {
-    for (let i = 0; i < WORD_LENGTH; i++) {
-      const currRow =
-        document.getElementsByClassName("row")[gameState.guessCount];
-      const currLetter = currRow.getElementsByClassName("tile")[i];
-      const currGuessLetter = currLetter.textContent?.toLocaleLowerCase()!;
-      if (currGuessLetter === SECRET_WORD[i]) {
-        currLetter.classList.add("correct");
-      } else if (SECRET_WORD.includes(currGuessLetter)) {
-        currLetter.classList.add("slightly-correct");
-      } else {
-        currLetter.classList.add("wrong");
-      }
-    }
-    gameState.guessCount++;
+  } else if (guess !== SECRET_WORD && guessCount < 6) {
+    checkLetterIfCorrect(gameState, SECRET_WORD);
   }
 
   gameState.letterCount = 0;
@@ -118,6 +97,10 @@ const gameWin = () => {
 };
 
 const gameOver = () => {
+  const loseMsgCont = document.createElement("div");
+  loseMsgCont.textContent = "You Lost!";
+
+  app.append(loseMsgCont);
   console.log("you lost");
 };
 
