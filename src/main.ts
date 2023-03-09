@@ -11,7 +11,6 @@ import {
   deleteLetter,
   checkCorrectLetter,
 } from "./Board/board-letters";
-import { updateKeyboard } from "./Board/update-keyboard";
 
 // constants
 const WORD_LENGTH = 5;
@@ -77,6 +76,10 @@ const checkIfCorrectGuess = (guess: string) => {
       const wordL = SECRET_WORD[i];
       const correctness = checkCorrectLetter(guessL, wordL, SECRET_WORD);
       currLetter.classList.add(correctness);
+
+      // update keyboard colors
+      const keyboardKey = document.getElementById(guessL);
+      keyboardKey?.classList.add(correctness);
     }
     gameState.guessCount++;
   }

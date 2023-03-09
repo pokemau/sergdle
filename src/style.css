@@ -9,6 +9,9 @@
   .row {
     @apply flex;
   }
+  .key-tile {
+    @apply bg-gray-200 m-[2px] w-9 h-12 flex items-center justify-center font-bold text-xl rounded hover:bg-gray-300 cursor-pointer;
+  }
   .correct {
     @apply bg-green-300;
   }
@@ -16,7 +19,7 @@
     @apply bg-yellow-300;
   }
   .wrong {
-    @apply bg-gray-300;
+    @apply bg-gray-400;
   }
   .play-again-btn {
     @apply bg-orange-300 px-5 py-2 m-2 rounded cursor-pointer hover:bg-orange-400;
@@ -29,9 +32,6 @@
   }
   .btns-cont {
     @apply flex;
-  }
-  .key-tile {
-    @apply bg-gray-200 m-[2px] w-9 h-12 flex items-center justify-center font-bold text-xl rounded hover:bg-gray-300 cursor-pointer;
   }
   .special-key {
     @apply bg-gray-200 w-[3.5em] rounded m-[2px] flex items-center justify-center cursor-pointer hover:bg-gray-300;
