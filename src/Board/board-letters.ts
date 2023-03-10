@@ -1,6 +1,29 @@
 import { GameState } from "../Utils/interfaces";
 
-export const showLetter = (key: string, gameState: GameState) => {
+export const handleUserType = (
+  keyIsValid: boolean,
+  keyVal: string,
+  gameState: GameState
+) => {
+  if (keyIsValid) {
+    showLetterOnTiles(keyVal, gameState);
+    gameState.currentGuess += keyVal.toLocaleLowerCase();
+    gameState.letterCount++;
+  }
+};
+
+export const handleUserDeleteLetter = (
+  isDelKey: boolean,
+  gameState: GameState
+) => {
+  if (isDelKey) {
+    gameState.letterCount--;
+    gameState.currentGuess = gameState.currentGuess.slice(0, -1);
+    deleteLetterFromTile(gameState);
+  }
+};
+
+export const showLetterOnTiles = (key: string, gameState: GameState) => {
   const currRow = document.getElementsByClassName("row")[gameState.guessCount];
   const currLetter =
     currRow.getElementsByClassName("tile")[gameState.letterCount];
@@ -8,7 +31,7 @@ export const showLetter = (key: string, gameState: GameState) => {
   currLetter.textContent = key;
 };
 
-export const deleteLetter = (gameState: GameState) => {
+export const deleteLetterFromTile = (gameState: GameState) => {
   const currRow = document.getElementsByClassName("row")[gameState.guessCount];
   const currLetter =
     currRow.getElementsByClassName("tile")[gameState.letterCount];
@@ -41,4 +64,6 @@ export const notInWordlistMsg = (app: HTMLDivElement) => {
     const msgDivEl = document.getElementById("not-word-div") as HTMLDivElement;
     msgDivEl.remove();
   }, 500);
+
+  return;
 };
