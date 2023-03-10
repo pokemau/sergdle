@@ -34,7 +34,6 @@ const getKeyPress = (e: KeyboardEvent) => {
   const guessCount = gameState.guessCount;
   const letterCount = gameState.letterCount;
   const currentGuess = gameState.currentGuess;
-  const isGameOVer = gameState.isGameOver;
 
   // user type
   const keyVal = key.toLocaleUpperCase();
@@ -55,24 +54,15 @@ const getKeyPress = (e: KeyboardEvent) => {
   if (key === "Enter" && enoughLetters) {
     if (inWordList) {
       checkGuessSubmit(currentGuess, inWordList);
-    } else notInWordlistMsg(app);
+    } else {
+      notInWordlistMsg(app);
+
+      document.removeEventListener("keydown", getKeyPress);
+      setTimeout(() => {
+        document.addEventListener("keydown", getKeyPress);
+      }, 500);
+    }
   }
-
-  // if (key === "Enter" && enoughLetters) {
-  //   if (inWordList) {
-  //     if (guessCount === 5 && !isGameOVer) {
-  //       gameOver();
-  //     }
-  //     checkIfCorrectGuess(currentGuess);
-  //   } else {
-  //     notInWordlistMsg(app);
-
-  //     elmntTarget.removeEventListener(evnt, getKeyPress);
-  //     setTimeout(() => {
-  //       elmntTarget.addEventListener(evnt, getKeyPress);
-  //     }, 500);
-  //   }
-  // }
 };
 document.addEventListener("keydown", getKeyPress);
 
@@ -85,7 +75,6 @@ const getKeyboardPress = (e: MouseEvent) => {
   const letterCount = gameState.letterCount;
   const currentGuess = gameState.currentGuess;
   const guessCount = gameState.guessCount;
-  const isGameOVer = gameState.isGameOver;
 
   // user on-screen keyboard press
   const keyTile = target.classList[0];
@@ -109,7 +98,13 @@ const getKeyboardPress = (e: MouseEvent) => {
   if (keyClass === "enter-key" && enoughLetters) {
     if (inWordList) {
       checkGuessSubmit(currentGuess, inWordList);
-    } else notInWordlistMsg(app);
+    } else {
+      notInWordlistMsg(app);
+      keyboard.removeEventListener("click", getKeyboardPress);
+      setTimeout(() => {
+        keyboard.addEventListener("click", getKeyboardPress);
+      }, 500);
+    }
   }
 };
 
