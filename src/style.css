@@ -9,6 +9,15 @@
   .row {
     @apply flex;
   }
+  .key-tile {
+    @apply bg-gray-200 m-[2.5px] w-[1.5em] md:w-[2em] h-[3em] flex items-center justify-center font-bold text-xl rounded active:hover:bg-gray-300 cursor-pointer;
+  }
+  .special-key {
+    @apply bg-gray-200 rounded m-[2px] w-[2.96em] md:w-[3.95em] h-[3.8em] flex items-center justify-center cursor-pointer active:bg-gray-300 font-bold;
+  }
+  .space {
+    @apply w-[1em] md:w-[1.4em];
+  }
   .correct {
     @apply bg-green-300;
   }
@@ -29,15 +38,6 @@
   }
   .btns-cont {
     @apply flex;
-  }
-  .key-tile {
-    @apply bg-gray-200 m-[2.5px] w-[1.5em] md:w-[2em] h-[3em] flex items-center justify-center font-bold text-xl rounded active:hover:bg-gray-300 cursor-pointer;
-  }
-  .special-key {
-    @apply bg-gray-200 rounded m-[2px] w-[2.96em] md:w-[3.95em] h-[3.8em] flex items-center justify-center cursor-pointer active:bg-gray-300 font-bold;
-  }
-  .space {
-    @apply w-[1em] md:w-[1.4em];
   }
 }
 

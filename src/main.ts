@@ -77,6 +77,7 @@ const checkIfCorrectGuess = (guess: string) => {
 
       // update keyboard colors
       const keyboardKey = document.getElementById(guessL);
+      console.log(keyboardKey);
       keyboardKey?.classList.add(correctness);
     }
     gameState.guessCount++;
@@ -124,6 +125,8 @@ const getKeyboardPress = (e: MouseEvent) => {
   const target = e.target as HTMLDivElement | HTMLButtonElement;
   const key = target.textContent!;
 
+  console.log(e);
+
   const letterCount = gameState.letterCount;
   const currentGuess = gameState.currentGuess;
   const guessCount = gameState.guessCount;
@@ -135,14 +138,16 @@ const getKeyboardPress = (e: MouseEvent) => {
     gameState.letterCount++;
   }
 
-  if (target.id === "delete-key" && letterCount > 0) {
+  const deleteClass = target.classList[0];
+  if (deleteClass === "delete-key" && letterCount > 0) {
     gameState.letterCount--;
     gameState.currentGuess = gameState.currentGuess.slice(0, -1);
     deleteLetter(gameState);
   }
   // user submit a guess
   const inWordList = WORDS.includes(currentGuess);
-  if (target.id === "enter-key" && letterCount === WORD_LENGTH && inWordList) {
+  const enterClass = target.classList[0];
+  if (enterClass === "enter-key" && letterCount === WORD_LENGTH && inWordList) {
     if (guessCount === 5 && !isGameOVer) {
       gameOver();
     }
