@@ -35,8 +35,6 @@ const getKeyPress = (e: KeyboardEvent) => {
   const currentGuess = gameState.currentGuess;
   const isGameOVer = gameState.isGameOver;
 
-  console.log(key);
-
   // user type
   if (determineIfLetter(key) && letterCount < 5 && guessCount < 6) {
     showLetter(key.toLocaleUpperCase(), gameState);
@@ -77,7 +75,6 @@ const checkIfCorrectGuess = (guess: string) => {
 
       // update keyboard colors
       const keyboardKey = document.getElementById(guessL);
-      console.log(keyboardKey);
       keyboardKey?.classList.add(correctness);
     }
     gameState.guessCount++;
@@ -121,23 +118,24 @@ const gameOver = () => {
 makeGameBoard();
 
 const keyboard = document.getElementById("keyboard-cont");
+
 const getKeyboardPress = (e: MouseEvent) => {
   const target = e.target as HTMLDivElement | HTMLButtonElement;
   const key = target.textContent!;
-
-  console.log(e);
 
   const letterCount = gameState.letterCount;
   const currentGuess = gameState.currentGuess;
   const guessCount = gameState.guessCount;
   const isGameOVer = gameState.isGameOver;
 
-  if (target.className === "key-tile") {
+  // user on-screen keyboard press
+  const keyTile = target.classList[0];
+  if (keyTile === "key-tile" && letterCount < 5 && guessCount < 6) {
     showLetter(key.toLocaleUpperCase(), gameState);
     gameState.currentGuess += key.toLocaleLowerCase();
     gameState.letterCount++;
   }
-
+  // user on-screen keyboard del
   const deleteClass = target.classList[0];
   if (deleteClass === "delete-key" && letterCount > 0) {
     gameState.letterCount--;
