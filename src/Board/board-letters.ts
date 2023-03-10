@@ -27,3 +27,18 @@ export const checkCorrectLetter = (
   else if (SECRET_WORD.includes(guessL)) return "slightly-correct";
   else return "wrong";
 };
+
+export const notInWordlistMsg = (app: HTMLDivElement) => {
+  const msgDiv = document.createElement("div");
+  msgDiv.classList.add("not-word");
+  msgDiv.id = "not-word-div";
+
+  msgDiv.textContent = "Not in Wordlist";
+
+  app.prepend(msgDiv);
+
+  setTimeout(() => {
+    const msgDivEl = document.getElementById("not-word-div") as HTMLDivElement;
+    msgDivEl.remove();
+  }, 600);
+};

@@ -10,6 +10,7 @@ import {
   showLetter,
   deleteLetter,
   checkCorrectLetter,
+  notInWordlistMsg,
 } from "./Board/board-letters";
 
 // constants
@@ -49,11 +50,13 @@ const getKeyPress = (e: KeyboardEvent) => {
   }
   // user submit a guess
   const inWordList = WORDS.includes(currentGuess);
-  if (key === "Enter" && letterCount === WORD_LENGTH && inWordList) {
-    if (guessCount === 5 && !isGameOVer) {
-      gameOver();
-    }
-    checkIfCorrectGuess(currentGuess);
+  if (key === "Enter" && letterCount === WORD_LENGTH) {
+    if (inWordList) {
+      if (guessCount === 5 && !isGameOVer) {
+        gameOver();
+      }
+      checkIfCorrectGuess(currentGuess);
+    } else notInWordlistMsg(app);
   }
 };
 document.addEventListener("keydown", getKeyPress);
