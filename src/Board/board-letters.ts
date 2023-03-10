@@ -40,5 +40,5 @@ export const notInWordlistMsg = (app: HTMLDivElement) => {
   setTimeout(() => {
     const msgDivEl = document.getElementById("not-word-div") as HTMLDivElement;
     msgDivEl.remove();
-  }, 600);
+  }, 500);
 };

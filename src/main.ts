@@ -57,6 +57,11 @@ const getKeyPress = (e: KeyboardEvent) => {
       }
       checkIfCorrectGuess(currentGuess);
     } else notInWordlistMsg(app);
+
+    document.removeEventListener("keydown", getKeyPress);
+    setTimeout(() => {
+      document.addEventListener("keydown", getKeyPress);
+    }, 500);
   }
 };
 document.addEventListener("keydown", getKeyPress);
