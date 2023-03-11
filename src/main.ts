@@ -163,20 +163,20 @@ const gameWin = () => {
 
   const winState = "Win";
 
-  gameOverMsg(winState);
+  gameOverMsg(winState, app);
 
-  playAgainMsg.textContent = "Play Again?";
-  winMessage.textContent = "YOU WON!";
-  app.append(winMessage);
-  app.append(playAgainMsg);
-  createBtns(app);
+  // playAgainMsg.textContent = "Play Again?";
+  // winMessage.textContent = "YOU WON!";
+  // app.append(winMessage);
+  // app.append(playAgainMsg);
+  // createBtns(app);
 
   document.removeEventListener("keydown", getKeyPress);
 };
 
 export const gameOver = () => {
   const winState = "Lose";
-  gameOverMsg(winState);
+  gameOverMsg(winState, app);
 };
 
 makeGameBoard();

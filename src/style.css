@@ -25,12 +25,18 @@
   .play-again-msg {
     @apply text-2xl;
   }
+  .game-over-msg {
+    @apply absolute font-bold text-3xl top-20 bg-gray-200 shadow-2xl w-[30%] h-[40%] text-center pt-1 rounded;
+  }
   .btns-cont {
-    @apply flex;
+    @apply flex items-center justify-center;
   }
 }
 
 @layer utilities {
+  .pText {
+    @apply text-lg font-semibold text-center;
+  }
   .not-word {
     @apply absolute bg-gray-200 p-2 rounded text-lg font-bold top-[30%] shadow-2xl;
   }
@@ -46,9 +52,6 @@
   .wrong {
     @apply bg-gray-400;
   }
-}
-
-.not-word {
 }
 
 .key-tile,
