@@ -47,7 +47,7 @@
     @apply text-lg font-semibold text-center;
   }
   .not-word {
-    @apply absolute bg-gray-200 p-2 rounded text-lg font-bold top-[30%] shadow-2xl;
+    @apply absolute bg-gray-200 p-2 rounded text-lg font-bold top-[30%] shadow-2xl z-10;
   }
   .space {
     @apply w-[1em] md:w-[1.4em];
