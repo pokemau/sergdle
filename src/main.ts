@@ -158,14 +158,14 @@ const gameWin = () => {
 
   const winState = "Win";
 
-  gameOverMsg(winState, app);
+  gameOverMsg(winState);
 
   document.removeEventListener("keydown", getKeyPress);
 };
 
 export const gameOver = () => {
   const winState = "Lose";
-  gameOverMsg(winState, app);
+  gameOverMsg(winState);
 };
 
 makeGameBoard();

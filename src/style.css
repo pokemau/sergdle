@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+#app {
+  display: flex;
+  width: 100vw;
+  margin: auto;
+}
+
 @layer components {
   .tile {
     @apply w-[50px] h-[50px] m-[2px] border-black border-[2px] flex items-center justify-center text-4xl font-bold;
@@ -25,8 +31,11 @@
   .play-again-msg {
     @apply text-2xl;
   }
+  #board-cont {
+    @apply relative;
+  }
   .game-over-msg {
-    @apply absolute font-bold text-3xl top-20 bg-gray-200 shadow-2xl w-[30%] h-[40%] text-center pt-1 rounded;
+    @apply absolute font-bold text-3xl top-20 bg-gray-200 shadow-2xl left-2 w-[94%] h-[50%] text-center pt-1 rounded;
   }
   .btns-cont {
     @apply flex items-center justify-center;

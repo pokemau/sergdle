@@ -20,7 +20,7 @@ export const createBtns = (gameOverMsgDiv: HTMLDivElement) => {
   gameOverMsgDiv.append(btnsCont);
 };
 
-export const gameOverMsg = (winState: string, app: HTMLDivElement) => {
+export const gameOverMsg = (winState: string) => {
   const msgDiv = document.createElement("div");
   const pText = document.createElement("p");
   msgDiv.classList.add("game-over-msg");
@@ -34,5 +34,7 @@ export const gameOverMsg = (winState: string, app: HTMLDivElement) => {
 
   createBtns(msgDiv);
 
-  app.append(msgDiv);
+  const boardCont = document.getElementById("board-cont") as HTMLDivElement;
+
+  boardCont.append(msgDiv);
 };
