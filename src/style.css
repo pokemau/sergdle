@@ -32,7 +32,7 @@
 
 @layer utilities {
   .not-word {
-    @apply absolute bg-gray-200 p-2 rounded text-lg font-bold hover:bg-gray-500 top-[30%] shadow-2xl;
+    @apply absolute bg-gray-200 p-2 rounded text-lg font-bold top-[30%] shadow-2xl;
   }
   .space {
     @apply w-[1em] md:w-[1.4em];
@@ -46,6 +46,9 @@
   .wrong {
     @apply bg-gray-400;
   }
+}
+
+.not-word {
 }
 
 .key-tile,

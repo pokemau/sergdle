@@ -12,3 +12,7 @@ export const createBtns = (app: HTMLDivElement) => {
 
   app.append(btnsCont);
 };
+
+export const gameOverMsg = (winState: string) => {
+  console.log(`You ${winState}`);
+};

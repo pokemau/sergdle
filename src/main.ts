@@ -2,7 +2,7 @@ import "./style.css";
 
 import { makeGameBoard } from "./Board/make-board";
 import { GameState } from "./Utils/interfaces";
-import { createBtns } from "./GameOver/new-game";
+import { createBtns, gameOverMsg } from "./GameOver/new-game";
 import { determineIfLetter } from "./Utils/determine-if-letter";
 import { WORDS } from "./wordlist/word-list";
 import { getRandomWord } from "./wordlist/get-word";
@@ -126,6 +126,7 @@ const checkGuessSubmit = (guess: string, inWordList: boolean) => {
       const guessL = guess[i];
       const wordL = SECRET_WORD[i];
       const correctness = checkCorrectLetter(guessL, wordL, SECRET_WORD);
+
       currLetter.classList.add(correctness);
 
       // update keyboard colors
@@ -151,6 +152,7 @@ const gameWin = () => {
     const currRow =
       document.getElementsByClassName("row")[gameState.guessCount];
     const currLetter = currRow.getElementsByClassName("tile")[i];
+
     currLetter.classList.add("correct");
   }
 
@@ -159,6 +161,10 @@ const gameWin = () => {
   const playAgainMsg = document.createElement("div");
   playAgainMsg.classList.add("play-again-msg");
 
+  const winState = "Win";
+
+  gameOverMsg(winState);
+
   playAgainMsg.textContent = "Play Again?";
   winMessage.textContent = "YOU WON!";
   app.append(winMessage);
@@ -166,16 +172,11 @@ const gameWin = () => {
   createBtns(app);
 
   document.removeEventListener("keydown", getKeyPress);
-
-  console.log("win");
 };
 
 export const gameOver = () => {
-  const loseMsgCont = document.createElement("div");
-  loseMsgCont.textContent = "You Lost!";
-
-  app.append(loseMsgCont);
-  console.log("you lost");
+  const winState = "Lose";
+  gameOverMsg(winState);
 };
 
 makeGameBoard();
