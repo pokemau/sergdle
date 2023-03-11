@@ -2,7 +2,7 @@ import "./style.css";
 
 import { makeGameBoard } from "./Board/make-board";
 import { GameState } from "./Utils/interfaces";
-import { createBtns, gameOverMsg } from "./GameOver/new-game";
+import { gameOverMsg } from "./GameOver/new-game";
 import { determineIfLetter } from "./Utils/determine-if-letter";
 import { WORDS } from "./wordlist/word-list";
 import { getRandomWord } from "./wordlist/get-word";
@@ -156,20 +156,9 @@ const gameWin = () => {
     currLetter.classList.add("correct");
   }
 
-  const winMessage = document.createElement("div");
-  winMessage.classList.add("win-msg");
-  const playAgainMsg = document.createElement("div");
-  playAgainMsg.classList.add("play-again-msg");
-
   const winState = "Win";
 
   gameOverMsg(winState, app);
-
-  // playAgainMsg.textContent = "Play Again?";
-  // winMessage.textContent = "YOU WON!";
-  // app.append(winMessage);
-  // app.append(playAgainMsg);
-  // createBtns(app);
 
   document.removeEventListener("keydown", getKeyPress);
 };
