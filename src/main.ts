@@ -2,22 +2,19 @@ import "./style.css";
 
 import { makeGameBoard } from "./Board/make-board";
 import { GameState } from "./Utils/interfaces";
-import { gameOverMsg } from "./GameOver/new-game";
 import { determineIfLetter } from "./Utils/determine-if-letter";
 import { WORDS } from "./wordlist/word-list";
-import { getRandomWord } from "./wordlist/get-word";
+import { getRandomWord } from "./wordlist/get-random-word";
+import { notInWordlistMsg } from "./Board/board-letters";
+import { checkGuessSubmit } from "./SubmitGuess/check-guess-submit";
 import {
-  checkCorrectLetter,
-  notInWordlistMsg,
   handleUserType,
   handleUserDeleteLetter,
-} from "./Board/board-letters";
+} from "./Board/keyboard-events";
 
 // constants
 const WORD_LENGTH = 5;
 let SECRET_WORD = getRandomWord(WORDS);
-
-console.log(SECRET_WORD);
 
 const app = document.getElementById("app") as HTMLDivElement;
 
@@ -29,7 +26,9 @@ const gameState: GameState = {
   isGameOver: false,
 };
 
-const getKeyPress = (e: KeyboardEvent) => {
+makeGameBoard();
+
+export const getKeyPress = (e: KeyboardEvent) => {
   const key = e.key;
   const guessCount = gameState.guessCount;
   const letterCount = gameState.letterCount;
@@ -42,7 +41,7 @@ const getKeyPress = (e: KeyboardEvent) => {
 
   handleUserType(keyIsValid, keyVal, gameState);
 
-  // user delete character
+  // user delete characterk
   const isDelKey = key === "Backspace" && letterCount > 0;
 
   handleUserDeleteLetter(isDelKey, gameState);
@@ -53,7 +52,13 @@ const getKeyPress = (e: KeyboardEvent) => {
 
   if (key === "Enter" && enoughLetters) {
     if (inWordList) {
-      checkGuessSubmit(currentGuess, inWordList);
+      checkGuessSubmit(
+        currentGuess,
+        inWordList,
+        gameState,
+        SECRET_WORD,
+        WORD_LENGTH
+      );
     } else {
       notInWordlistMsg(app);
 
@@ -64,6 +69,7 @@ const getKeyPress = (e: KeyboardEvent) => {
     }
   }
 };
+
 document.addEventListener("keydown", getKeyPress);
 
 const keyboard = document.getElementById("keyboard-cont") as HTMLDivElement;
@@ -97,7 +103,13 @@ const getKeyboardPress = (e: MouseEvent) => {
 
   if (keyClass === "enter-key" && enoughLetters) {
     if (inWordList) {
-      checkGuessSubmit(currentGuess, inWordList);
+      checkGuessSubmit(
+        currentGuess,
+        inWordList,
+        gameState,
+        SECRET_WORD,
+        WORD_LENGTH
+      );
     } else {
       notInWordlistMsg(app);
       keyboard.removeEventListener("click", getKeyboardPress);
@@ -109,63 +121,3 @@ const getKeyboardPress = (e: MouseEvent) => {
 };
 
 keyboard.addEventListener("click", getKeyboardPress);
-
-const checkGuessSubmit = (guess: string, inWordList: boolean) => {
-  const guessCount = gameState.guessCount;
-
-  if (guess == SECRET_WORD) {
-    gameWin();
-    return;
-  }
-
-  if (guess !== SECRET_WORD && guessCount < 6 && inWordList) {
-    for (let i = 0; i < WORD_LENGTH; i++) {
-      const currRow =
-        document.getElementsByClassName("row")[gameState.guessCount];
-      const currLetter = currRow.getElementsByClassName("tile")[i];
-      const guessL = guess[i];
-      const wordL = SECRET_WORD[i];
-      const correctness = checkCorrectLetter(guessL, wordL, SECRET_WORD);
-
-      currLetter.classList.add(correctness);
-
-      // update keyboard colors
-      const keyboardKey = document.getElementById(guessL);
-      keyboardKey?.classList.add(correctness);
-    }
-    gameState.guessCount++;
-  }
-
-  // maximum guesses
-  if (guessCount === 5) {
-    gameOver();
-    return;
-  }
-
-  gameState.letterCount = 0;
-  gameState.currentGuess = "";
-};
-
-const gameWin = () => {
-  gameState.isGameOver = true;
-  for (let i = 0; i < WORD_LENGTH; i++) {
-    const currRow =
-      document.getElementsByClassName("row")[gameState.guessCount];
-    const currLetter = currRow.getElementsByClassName("tile")[i];
-
-    currLetter.classList.add("correct");
-  }
-
-  const winState = "Win";
-
-  gameOverMsg(winState);
-
-  document.removeEventListener("keydown", getKeyPress);
-};
-
-export const gameOver = () => {
-  const winState = "Lose";
-  gameOverMsg(winState);
-};
-
-makeGameBoard();
