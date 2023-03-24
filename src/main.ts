@@ -16,7 +16,7 @@ import {
 const WORD_LENGTH = 5;
 let SECRET_WORD = getRandomWord(WORDS);
 
-const app = document.getElementById("app") as HTMLDivElement;
+// const app = document.getElementById("app") as HTMLDivElement;
 
 const gameState: GameState = {
   guessCount: 0,
@@ -60,7 +60,7 @@ export const getKeyPress = (e: KeyboardEvent) => {
         WORD_LENGTH
       );
     } else {
-      notInWordlistMsg(app);
+      notInWordlistMsg();
 
       document.removeEventListener("keydown", getKeyPress);
       setTimeout(() => {
@@ -111,7 +111,7 @@ const getKeyboardPress = (e: MouseEvent) => {
         WORD_LENGTH
       );
     } else {
-      notInWordlistMsg(app);
+      notInWordlistMsg();
       keyboard.removeEventListener("click", getKeyboardPress);
       setTimeout(() => {
         keyboard.addEventListener("click", getKeyboardPress);

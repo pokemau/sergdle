@@ -10,14 +10,12 @@ export const checkCorrectLetter = (
   else return "wrong";
 };
 
-export const notInWordlistMsg = (app: HTMLDivElement) => {
+export const notInWordlistMsg = () => {
   const msgDiv = document.createElement("div");
   msgDiv.classList.add("not-word");
   msgDiv.id = "not-word-div";
 
   msgDiv.textContent = "Not in Wordlist";
-
-  // app.prepend(msgDiv);
 
   const boardCont = document.getElementById("board-cont") as HTMLDivElement;
   boardCont.append(msgDiv);
