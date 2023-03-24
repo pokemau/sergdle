@@ -32,7 +32,7 @@
     @apply text-2xl;
   }
   #board-cont {
-    @apply relative;
+    @apply relative flex flex-col items-center justify-center;
   }
   .game-over-msg {
     @apply absolute font-bold text-3xl top-20 bg-gray-200 shadow-2xl left-2 w-[94%] h-[50%] text-center pt-1 rounded;
@@ -73,13 +73,13 @@
   }
 
   10% {
-    width: 30%;
-    height: 10%;
+    width: 92%;
+    height: 15%;
   }
 
   100% {
-    width: 28%;
-    height: 8%;
+    width: 90%;
+    height: 13%;
   }
 }
 

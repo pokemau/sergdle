@@ -17,7 +17,10 @@ export const notInWordlistMsg = (app: HTMLDivElement) => {
 
   msgDiv.textContent = "Not in Wordlist";
 
-  app.prepend(msgDiv);
+  // app.prepend(msgDiv);
+
+  const boardCont = document.getElementById("board-cont") as HTMLDivElement;
+  boardCont.append(msgDiv);
 
   setTimeout(() => {
     const msgDivEl = document.getElementById("not-word-div") as HTMLDivElement;
