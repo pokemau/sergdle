@@ -1,5 +1,5 @@
 import { GameState } from "../Utils/interfaces";
-import { gameOverMsg } from "./new-game";
+import { gameOverMsg } from "./game-over-msg";
 import { getKeyPress } from "../main";
 
 export const gameWin = (gameState: GameState, WORD_LENGTH: number) => {
